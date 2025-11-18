@@ -107,6 +107,11 @@ external getProgramParameter: (context, program, programParameter) => 'a = "getP
 @send external getActiveUniform: (context, program, int) => activeInfo = "getActiveUniform"
 @send external getAttachedShaders: (context, program) => array<shader> = "getAttachedShaders"
 @send external getAttribLocation: (context, program, string) => attribLocation = "getAttribLocation"
+@send external attribLoc2int: attribLocation => int = "%identity"
+let isInvalidAttribLocation = (loc: attribLocation): bool => {
+  loc->attribLoc2int < 0
+}
+
 @send
 external getUniformLocation: (context, program, string) => option<uniformLocation> =
   "getUniformLocation"
