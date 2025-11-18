@@ -111,7 +111,7 @@ external getProgramParameter: (context, program, programParameter) => 'a = "getP
 external getUniformLocation: (context, program, string) => option<uniformLocation> =
   "getUniformLocation"
 @send external isProgram: (context, program) => bool = "isProgram"
-@send external getProgramInfoLog: context => string = "getProgramInfoLog"
+@send external getProgramInfoLog: (context, program) => string = "getProgramInfoLog"
 @send external validateProgram: (context, program) => unit = "validateProgram"
 
 // Uniform setters
