@@ -156,7 +156,3 @@ gl->WebGL.drawArrays(WebGLConstants._TRIANGLES, 0, 3)
 2. 添加适当的类型注解
 3. 更新文档和示例
 4. 运行构建以确保没有错误
-
-## 许可证
-
-MIT
