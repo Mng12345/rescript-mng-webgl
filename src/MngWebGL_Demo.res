@@ -1,4 +1,4 @@
-// Demo usage of WebGL bindings
+// Demo usage of MngWebGL bindings
 
 let vertexShaderSource = `
 attribute vec2 a_position;
@@ -21,36 +21,36 @@ let initWebGL = () => {
   switch Webapi.Dom.document->Webapi.Dom.Document.getElementById("canvas") {
   | Some(canvasElement) =>
     // 使用WebGL模块的getContext方法获取WebGL上下文
-    switch WebGL.getContext(canvasElement, "webgl") {
+    switch MngWebGL.getContext(canvasElement, "webgl") {
     | Some(gl) =>
       // Create shaders
-      switch gl->WebGL.createShader(VertexShader) {
+      switch gl->MngWebGL.createShader(VertexShader) {
       | Some(vertexShader) =>
-        gl->WebGL.shaderSource(vertexShader, vertexShaderSource)
-        gl->WebGL.compileShader(vertexShader)
+        gl->MngWebGL.shaderSource(vertexShader, vertexShaderSource)
+        gl->MngWebGL.compileShader(vertexShader)
 
-        switch gl->WebGL.createShader(FragmentShader) {
+        switch gl->MngWebGL.createShader(FragmentShader) {
         | Some(fragmentShader) =>
-          gl->WebGL.shaderSource(fragmentShader, fragmentShaderSource)
-          gl->WebGL.compileShader(fragmentShader)
+          gl->MngWebGL.shaderSource(fragmentShader, fragmentShaderSource)
+          gl->MngWebGL.compileShader(fragmentShader)
 
           // Create program
-          switch gl->WebGL.createProgram {
+          switch gl->MngWebGL.createProgram {
           | Some(program) =>
-            gl->WebGL.attachShader(program, vertexShader)
-            gl->WebGL.attachShader(program, fragmentShader)
-            gl->WebGL.linkProgram(program)
-            gl->WebGL.useProgram(program)
+            gl->MngWebGL.attachShader(program, vertexShader)
+            gl->MngWebGL.attachShader(program, fragmentShader)
+            gl->MngWebGL.linkProgram(program)
+            gl->MngWebGL.useProgram(program)
 
             // Set up buffers and render
-            Js.log("WebGL initialized successfully")
+            Js.log("MngWebGL initialized successfully")
           | None => Js.log("Failed to create program")
           }
         | None => Js.log("Failed to create fragment shader")
         }
       | None => Js.log("Failed to create vertex shader")
       }
-    | None => Js.log("Failed to get WebGL context")
+    | None => Js.log("Failed to get MngWebGL context")
     }
   | None => Js.log("Canvas element not found")
   }

@@ -1,42 +1,42 @@
 // Main WebGL API bindings
-module WebGLTypes = WebGLTypes
-module WebGLConstants = WebGLConstants
+module Types = MngWebGL_Types
+module Constants = MngWebGL_Constants
 
 // Type aliases for better readability
-type context = WebGLTypes.webGlContext
-type buffer = WebGLTypes.webGlBuffer
-type shader = WebGLTypes.webGlShader
-type program = WebGLTypes.webGlProgram
-type texture = WebGLTypes.webGlTexture
-type uniformLocation = WebGLTypes.webGlUniformLocation
-type attribLocation = WebGLTypes.webGlAttribLocation
-type activeInfo = WebGLTypes.webGlActiveInfo
-type framebuffer = WebGLTypes.webGlFramebuffer
-type renderbuffer = WebGLTypes.webGlRenderbuffer
-type webGlVertexArrayObject = WebGLTypes.webGlVertexArrayObject
+type context = Types.webGlContext
+type buffer = Types.webGlBuffer
+type shader = Types.webGlShader
+type program = Types.webGlProgram
+type texture = Types.webGlTexture
+type uniformLocation = Types.webGlUniformLocation
+type attribLocation = Types.webGlAttribLocation
+type activeInfo = Types.webGlActiveInfo
+type framebuffer = Types.webGlFramebuffer
+type renderbuffer = Types.webGlRenderbuffer
+type webGlVertexArrayObject = Types.webGlVertexArrayObject
 
-// Importing types from WebGLConstants
-type bufferType = WebGLConstants.bufferType
-type shaderType = WebGLConstants.shaderType
-type beginMode = WebGLConstants.beginMode
-type dataType = WebGLConstants.dataType
-type bufferUsage = WebGLConstants.bufferUsage
-type clearBufferMask = WebGLConstants.clearBufferMask
-type enableCap = WebGLConstants.enableCap
-type textureType = WebGLConstants.textureType
-type textureParameter = WebGLConstants.textureParameter
-type textureFilter = WebGLConstants.textureFilter
-type textureWrap = WebGLConstants.textureWrap
-type shaderParameter = WebGLConstants.shaderParameter
-type programParameter = WebGLConstants.programParameter
-type framebufferStatus = WebGLTypes.framebufferStatus
-type renderbufferInternalFormat = WebGLTypes.renderbufferInternalFormat
-type pixelFormat = WebGLTypes.pixelFormat
+// Importing types from Constants
+type bufferType = Constants.bufferType
+type shaderType = Constants.shaderType
+type beginMode = Constants.beginMode
+type dataType = Constants.dataType
+type bufferUsage = Constants.bufferUsage
+type clearBufferMask = Constants.clearBufferMask
+type enableCap = Constants.enableCap
+type textureType = Constants.textureType
+type textureParameter = Constants.textureParameter
+type textureFilter = Constants.textureFilter
+type textureWrap = Constants.textureWrap
+type shaderParameter = Constants.shaderParameter
+type programParameter = Constants.programParameter
+type framebufferStatus = Types.framebufferStatus
+type renderbufferInternalFormat = Types.renderbufferInternalFormat
+type pixelFormat = Types.pixelFormat
 
 // Context creation and configuration
 @val external getContext: (Dom.element, string) => option<context> = "getContext"
 @send
-external getContextAttributes: context => WebGLTypes.webGlContextAttributes = "getContextAttributes"
+external getContextAttributes: context => Types.webGlContextAttributes = "getContextAttributes"
 @send external isContextLost: context => bool = "isContextLost"
 @send external drawingBufferWidth: context => int = "drawingBufferWidth"
 @send external drawingBufferHeight: context => int = "drawingBufferHeight"
@@ -96,7 +96,9 @@ external bufferData: (context, bufferType, TypedArray.t<'a>, bufferUsage) => uni
 
 // Program operations
 @send external attachShader: (context, program, shader) => unit = "attachShader"
-@send external bindAttribLocation: (context, program, attribLocation, string) => unit = "bindAttribLocation"
+@send
+external bindAttribLocation: (context, program, attribLocation, string) => unit =
+  "bindAttribLocation"
 @send external linkProgram: (context, program) => unit = "linkProgram"
 @send external useProgram: (context, program) => unit = "useProgram"
 @send
@@ -207,24 +209,34 @@ external copyTexImage2D: (context, textureType, int, pixelFormat, int, int, int,
 external copyTexSubImage2D: (context, textureType, int, int, int, int, int, int, int) => unit =
   "copyTexSubImage2D"
 @send external generateMipmap: (context, textureType) => unit = "generateMipmap"
-@send external isSampler: (context, WebGLTypes.webGlSampler) => bool = "isSampler"
+@send external isSampler: (context, Types.webGlSampler) => bool = "isSampler"
 
 // Vertex attributes
-@send external enableVertexAttribArray: (context, attribLocation) => unit = "enableVertexAttribArray"
-@send external disableVertexAttribArray: (context, attribLocation) => unit = "disableVertexAttribArray"
+@send
+external enableVertexAttribArray: (context, attribLocation) => unit = "enableVertexAttribArray"
+@send
+external disableVertexAttribArray: (context, attribLocation) => unit = "disableVertexAttribArray"
 @send
 external vertexAttribPointer: (context, attribLocation, int, dataType, bool, int, int) => unit =
   "vertexAttribPointer"
 @send external vertexAttrib1f: (context, attribLocation, float) => unit = "vertexAttrib1f"
 @send external vertexAttrib2f: (context, attribLocation, float, float) => unit = "vertexAttrib2f"
-@send external vertexAttrib3f: (context, attribLocation, float, float, float) => unit = "vertexAttrib3f"
-@send external vertexAttrib4f: (context, attribLocation, float, float, float, float) => unit = "vertexAttrib4f"
-@send external vertexAttrib1fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib1fv"
-@send external vertexAttrib2fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib2fv"
-@send external vertexAttrib3fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib3fv"
-@send external vertexAttrib4fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib4fv"
+@send
+external vertexAttrib3f: (context, attribLocation, float, float, float) => unit = "vertexAttrib3f"
+@send
+external vertexAttrib4f: (context, attribLocation, float, float, float, float) => unit =
+  "vertexAttrib4f"
+@send
+external vertexAttrib1fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib1fv"
+@send
+external vertexAttrib2fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib2fv"
+@send
+external vertexAttrib3fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib3fv"
+@send
+external vertexAttrib4fv: (context, attribLocation, TypedArray.t<float>) => unit = "vertexAttrib4fv"
 @send external getVertexAttrib: (context, attribLocation, int) => 'a = "getVertexAttrib"
-@send external getVertexAttribOffset: (context, attribLocation, int) => int = "getVertexAttribOffset"
+@send
+external getVertexAttribOffset: (context, attribLocation, int) => int = "getVertexAttribOffset"
 
 // Rendering
 @send external clearColor: (context, float, float, float, float) => unit = "clearColor"
@@ -307,7 +319,9 @@ external getFramebufferAttachmentParameter: (context, int, int, int) => 'a =
 @send external getUniform: (context, program, uniformLocation) => 'a = "getUniform"
 
 // Additional program operations
-@send external getShaderPrecisionFormat: (context, shaderType, int) => WebGLTypes.webGlShaderPrecisionFormat = "getShaderPrecisionFormat"
+@send
+external getShaderPrecisionFormat: (context, shaderType, int) => Types.webGlShaderPrecisionFormat =
+  "getShaderPrecisionFormat"
 
 // Commit method
 @send external commit: context => unit = "commit"

@@ -32,7 +32,7 @@ function initWebGL() {
           gl$1.attachShader(program$1, fragmentShader$1);
           gl$1.linkProgram(program$1);
           gl$1.useProgram(program$1);
-          console.log("WebGL initialized successfully");
+          console.log("MngWebGL initialized successfully");
           return ;
         }
         console.log("Failed to create program");
@@ -44,7 +44,7 @@ function initWebGL() {
     console.log("Failed to create vertex shader");
     return ;
   }
-  console.log("Failed to get WebGL context");
+  console.log("Failed to get MngWebGL context");
 }
 
 export {
