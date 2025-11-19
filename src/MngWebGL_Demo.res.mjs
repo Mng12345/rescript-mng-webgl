@@ -12,7 +12,16 @@ function initWebGL() {
     console.log("Canvas element not found");
     return ;
   }
-  var gl = getContext(canvasElement, "webgl");
+  var gl = getContext(canvasElement, "WebGL", {
+        alpha: true,
+        depth: true,
+        stencil: false,
+        antialias: true,
+        premultipliedAlpha: true,
+        preserveDrawingBuffer: false,
+        preferLowPowerToHighPerformance: false,
+        failIfMajorPerformanceCaveat: false
+      });
   if (gl !== undefined) {
     var gl$1 = Caml_option.valFromOption(gl);
     var vertexShader = gl$1.createShader(35633);

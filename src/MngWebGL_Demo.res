@@ -21,7 +21,18 @@ let initWebGL = () => {
   switch Webapi.Dom.document->Webapi.Dom.Document.getElementById("canvas") {
   | Some(canvasElement) =>
     // 使用WebGL模块的getContext方法获取WebGL上下文
-    switch MngWebGL.getContext(canvasElement, "webgl") {
+    let contextAttributes: MngWebGL_Types.webGlContextAttributes = {
+      alpha: true,
+      depth: true,
+      stencil: false,
+      antialias: true,
+      premultipliedAlpha: true,
+      preserveDrawingBuffer: false,
+      preferLowPowerToHighPerformance: false,
+      failIfMajorPerformanceCaveat: false,
+    }
+    
+    switch MngWebGL.getContextWithOptions(canvasElement, WebGL, contextAttributes) {
     | Some(gl) =>
       // Create shaders
       switch gl->MngWebGL.createShader(VertexShader) {

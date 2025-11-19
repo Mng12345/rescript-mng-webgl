@@ -34,7 +34,33 @@ type renderbufferInternalFormat = Types.renderbufferInternalFormat
 type pixelFormat = Types.pixelFormat
 
 // Context creation and configuration
-@val external getContext: (Dom.element, string) => option<context> = "getContext"
+type contextType = 
+  | @string("webgl") WebGL
+  | @string("webgl2") WebGL2
+  | @string("experimental-webgl") ExperimentalWebGL
+
+@val external getContextWithOptions: (Dom.element, contextType, MngWebGL_Types.webGlContextAttributes) => option<context> = "getContext"
+@val external getContext: (Dom.element, contextType) => option<context> = "getContext"
+
+let getContextWithOptionalOptions = (canvasElement: Dom.element, contextType: contextType, ~alpha: option<bool>=?, ~depth: option<bool>=?, ~stencil: option<bool>=?, ~antialias: option<bool>=?, ~premultipliedAlpha: option<bool>=?, ~preserveDrawingBuffer: option<bool>=?, ~preferLowPowerToHighPerformance: option<bool>=?, ~failIfMajorPerformanceCaveat: option<bool>=?) : option<context> => {
+  switch (alpha, depth, stencil, antialias, premultipliedAlpha, preserveDrawingBuffer, preferLowPowerToHighPerformance, failIfMajorPerformanceCaveat) {
+  | (None, None, None, None, None, None, None, None) => getContext(canvasElement, contextType)
+  | _ => {
+      let attributes: MngWebGL_Types.webGlContextAttributes = {
+        alpha: Option.getOr(alpha, true),
+        depth: Option.getOr(depth, true),
+        stencil: Option.getOr(stencil, false),
+        antialias: Option.getOr(antialias, true),
+        premultipliedAlpha: Option.getOr(premultipliedAlpha, true),
+        preserveDrawingBuffer: Option.getOr(preserveDrawingBuffer, false),
+        preferLowPowerToHighPerformance: Option.getOr(preferLowPowerToHighPerformance, false),
+        failIfMajorPerformanceCaveat: Option.getOr(failIfMajorPerformanceCaveat, false),
+      }
+      getContextWithOptions(canvasElement, contextType, attributes)
+    }
+  }
+}
+
 @send
 external getContextAttributes: context => Types.webGlContextAttributes = "getContextAttributes"
 @send external isContextLost: context => bool = "isContextLost"
